@@ -11,4 +11,4 @@ def create_group(request):
     else:
         form = GroupForm()
     data = {'form': form}
-    return render(request, "Epoch/new_epoch.html", data)
+    return render(request, "create_group.html", data)
