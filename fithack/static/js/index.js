@@ -1,11 +1,17 @@
-$(document).ready(function(){
+$(document).ready(function () {
+
+//      //this is for making the edit profile image as the upload button
+    $("#upfile1").click(function () {
+        $("#file1").trigger('click');
+    });
+
+
 //    var vendpoint = "https://api.validic.com/v1/organizations/51aca5a06dedda916400002b/weight.json?access_token=ENTERPRISE_KEY&start_date=2014-04-01";
+//Enterprise bulk data: Weight
+    var user_ids = [];
+    var user_data = [];
     var user_pk = $('#user_pk').html();
     var user_key = ["", "538c9054f1f70eb3a3000006", "526bafa36dedda5bff000001", "5427156884626bc6b3000001", "53611913f1f70ef82c0000e7", "53fcf61484626bf9d8000006"];
-
-
-
-    console.log(user_pk);
     $('.import_userData').on('click', function() {
 //            $.ajax({
 //            url: vendpoint,

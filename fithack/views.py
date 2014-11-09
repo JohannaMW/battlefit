@@ -9,13 +9,13 @@ from django.views.decorators.csrf import csrf_exempt
 from fithack.forms import EmailUserCreationForm
 from fithack.models import *
 
-
+@login_required
 def create_group(request):
     if request.method == "POST":
         form = GroupForm(request.POST)
         if form.is_valid():
             if form.save():
-                return redirect("/create")
+                return redirect("/")
     else:
         form = GroupForm()
     data = {'form': form}
@@ -161,7 +161,6 @@ def group(request, group_id):
 def home(request):
     return render_to_response("home.html")
 
-# @csrf_exempt
 
 def register(request):
     if request.method == 'POST':
