@@ -1,21 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ group.name }}</h1>
+{{ group.category }}<br>
+Competition starts:  {{ group.start_date }}<br>
+Competition ends: {{ group.end_date }}<br>
+Group Goal: {{ group.goal }}<br>
+    Members:
+    {% for member in group.member.all %}
+    {{ member.username }},
+    {% endfor %}<br>
+Best performing member:    {{ winner_name }}, Score: {{ winner_score }}<br>
 
-{#{% extends base.html %}#}
-{##}
-{#{% block group %}#}
-{#{% endblock group %}#}
+Your Score: {{ score }}<br>
+Group average: {{ group_avg }}
 
-
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-    {{ group.name }}
-    {{ score }}
-    {{ group_avg }}
-    {{ winner_score }}
-    {{ winner_name }}
-
-</body>
-</html>
+{% endblock %}

@@ -4,11 +4,6 @@ from fithack.models import *
 from django.forms import ModelForm
 
 
-class GroupForm(ModelForm):
-     class Meta:
-         model = Group
-
-
 class EmailUserCreationForm(UserCreationForm):
 
     class Meta:
@@ -27,7 +22,6 @@ class EmailUserCreationForm(UserCreationForm):
             self.error_messages['duplicate_username'],
             code='duplicate_username',
         )
-
 
 class GroupForm(ModelForm):
     class Meta:
