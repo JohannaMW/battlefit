@@ -27,14 +27,19 @@ class GroupForm(ModelForm):
     class Meta:
         model = Group
 
+
 class GroupAdminForm(ModelForm):
     class Meta:
         model = GroupAdmin
 
+
 class DataForm(ModelForm):
     class Meta:
         model = Data
+<<<<<<< HEAD
 
 class MemberForm(ModelForm):
     class Meta:
         model = Member
+=======
+>>>>>>> ebcc81642e7cdbd5736db358ed1ef15f78f503ff
