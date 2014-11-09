@@ -3,17 +3,17 @@ from django.contrib.auth.forms import UserCreationForm
 from fithack.models import *
 from django.forms import ModelForm
 
+
 class GroupForm(ModelForm):
      class Meta:
          model = Group
 
 
 class EmailUserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
 
     class Meta:
         model = Member
-        fields = ("username", "first_name", "last_name", "phone", "email", "password1", "password2")
+        fields = ("username", "password1", "password2")
 
     def clean_username(self):
         # Since User.username is unique, this check is redundant,
