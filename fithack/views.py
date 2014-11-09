@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from fithack.forms import EmailUserCreationForm
 from fithack.models import *
 
+
 @login_required
 def create_group(request):
     if request.method == "POST":
@@ -214,6 +215,7 @@ def user_dashboard(request):
             'time': i.date.split('T')[1].split('+')[0],
             'body_fat': i.body_fat*100
         })
+
     try:
         group_data = group_overview(request.user)
         print group_data
