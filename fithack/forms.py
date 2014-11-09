@@ -46,8 +46,12 @@ class DataForm(ModelForm):
 
 
 class MemberForm(ModelForm):
-
-
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': 'text_box'}))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'text_box'}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'class': 'text_box'}))
+    email = forms.EmailField(widget=forms.TextInput(attrs={'class': 'textb0x'}))
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'textb0x'}))
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'textb0x'}))
 
     class Meta:
         model = Member
