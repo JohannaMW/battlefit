@@ -18,6 +18,7 @@ class Member(AbstractUser):
     def __unicode__(self):
         return unicode(self.username)
 
+
 class Group(models.Model):
     WEIGHT_LOSS = 'W'
     HEALTH = 'H'
@@ -37,6 +38,7 @@ class Group(models.Model):
     def __unicode__(self):
         return u"{}".format(self.name)
 
+
 class GroupAdmin(models.Model):
     admin = models.BooleanField(default=False)
     user = models.ForeignKey(Member, related_name='administrator')
@@ -44,6 +46,7 @@ class GroupAdmin(models.Model):
 
     def __unicode__(self):
         return u"{}".format(self.group)
+
 
 class Data(models.Model):
     calories_consumed = models.FloatField(null=True, blank=True)
@@ -56,3 +59,4 @@ class Data(models.Model):
 
     def __unicode__(self):
         return u"{} {}".format(self.activity_type, self.activity_title)
+

@@ -4,6 +4,9 @@ from fit import settings
 from django.conf.urls.static import static
 
 urlpatterns = patterns('',
+    # Examples:
+    # url(r'^$', 'fit.views.home', name='home'),
+    # url(r'^blog/', include('blog.urls')),
     url(r'^create/$', 'fithack.views.create_group', name='create_group'),
     url(r'^group/$', 'fithack.views.group_overview', name='group_overview'),
     url(r'^group/(?P<group_id>\w+)/$', 'fithack.views.group', name='group'),
@@ -12,8 +15,6 @@ urlpatterns = patterns('',
     url(r'^new_calories_consume/$', 'fithack.views.new_calories_consume', name='new_calories_consume'),
     url(r'^new_calories_burned/$', 'fithack.views.new_calories_burned', name='new_calories_burned'),
     # url(r'^new_body_fat/$', 'fithack.views.new_body_fat', name='new_body_fat'),
-
-
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'fithack.views.home', name='home'),
 
@@ -33,5 +34,6 @@ urlpatterns = patterns('',
 
 
 )
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

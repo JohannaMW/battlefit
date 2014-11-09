@@ -26,6 +26,7 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'fithack.Member'
 
 # Application definition
 
@@ -71,7 +72,6 @@ DATABASES = {
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
-AUTH_USER_MODEL = 'fithack.Member'
 
 LOGIN_REDIRECT_URL = '/profile'
 LOGIN_URL = 'login'
