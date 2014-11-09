@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from fithack.forms import GroupForm
 from fithack.models import Group, Data
+import operator
 
 def create_group(request):
     if request.method == "POST":
@@ -15,43 +16,66 @@ def create_group(request):
 
 def group(request, group_id):
     group = Group.objects.get(id=group_id)
-    data = Data.objects.get(member = request.user, date__range=[group.start_date, group.end_date])
+    data = Data.objects.filter(member = request.user, date__range=[group.start_date, group.end_date])
     member_data = []
+    data_group = []
     score = 0
+    member_score = {}
+
     if group.category == 'W':
-        data_group = data.calories_burned
+        for datum in data:
+            data_group.append(datum.calories_burned)
         data_w = sum(data_group)/len(data_group)
         score = (group.goal - data_w) / group.goal
-        members = group.member
+        members = group.member.all()
+        print members
         for member in members:
-            data_member = Data.objects.get(member=member, date__range=[group.start_date, group.end_date])\
-                .calories_burned
-            member_data.append(data_member)
+            member_dataset = []
+            data = Data.objects.filter(member=member, date__range=[group.start_date, group.end_date])
+            for d in data:
+                member_dataset.append(d.calories_burned)
+                member_data.append(d.calories_burned)
+            member_avg = sum(member_dataset)/len(member_dataset)
+            mem_score = (group.goal - member_avg) / group.goal
+            member_score[member.username] = mem_score
+            print member_score
 
     elif group.category == 'H':
-        data_group = data.calories_consumed
+        for datum in data:
+            data_group.append(datum.calories_consumed)
         data_h = sum(data_group)/len(data_group)
         score = (data_h - group.goal) / data_h
         members = group.member
         for member in members:
-            data_member = Data.objects.get(member=member, date__range=[group.start_date, group.end_date])\
-                .calories_consumed
-            member_data.append(data_member)
+            data = Data.objects.filter(member=member, date__range=[group.start_date, group.end_date])
+            for d in data:
+                member_data.append(d.calories_consumed)
     else:
-        data_group = data.body_fat
+        for datum in data:
+            data_group.append(datum.body_fat)
         score = sum(data_group)/len(data_group)
         members = group.member
         for member in members:
-            data_member = Data.objects.get(member=member, date__range=[group.start_date, group.end_date])\
-                .body_fat
-            member_data.append(data_member)
+            data = Data.objects.filter(member=member, date__range=[group.start_date, group.end_date])
+            for d in data:
+                member_data.append(d.body_fat)
 
     group_avg = sum(member_data)/len(member_data)
+    sorted_scores = sorted(member_score.items(), key=operator.itemgetter(1))
+    sorted_scores.reverse()
+    winner_score = sorted_scores[1]
+    print winner_score
+    winner_name = sorted_scores[0]
+    print winner_name
+
     data = {
         "group_avg":group_avg,
         "score":score,
-        "group":group
+        "group":group,
+        "winner_score" : winner_score,
+        "winner_name" : winner_name
     }
+
     return render(request, "group.html", data)
 
 

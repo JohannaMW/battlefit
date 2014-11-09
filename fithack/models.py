@@ -41,6 +41,6 @@ class Data(models.Model):
     calories_consumed = models.FloatField()
     calories_burned = models.FloatField()
     date = models.DateField(auto_created=True)
-    body_fat = models.FloatField(null=True, blank=True)
+    body_fat = models.FloatField()
     activity = models.CharField(max_length=200)
     member = models.ForeignKey(Member, related_name='data')
