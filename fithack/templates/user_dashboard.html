@@ -7,11 +7,9 @@
 {% endblock %}
 
 {% block content %}
-    {% for key, value in group_scores.items %}
-    {{ key }} {{ value }}
-    {% endfor %}
     <br>
     <br>
+
     <div class="col-lg-4 col-md-4 col-sm-7 col-xs-12" align="center">
         <div class="user_window back_trans">
             <img id="bg_profile_image" class="img-circle" src="{{ user.pic.url }}"/><br>
@@ -50,7 +48,21 @@
                 </table>
             </div>
         </div>
+        <div style="margin-top: 30px;" class="user_window back_trans" align="center">
+            <h4 style="border-bottom: 2px solid darkgrey;"> Your Groups </h4>
+            {% for key, value in group_data.items %}
+                <table>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 10px;"><a href="/group/{{ key.id }}">{{ key.name }}</a></td>
+                            <td style="padding: 10px;">score: <b>({{ value | floatformat:3 }})</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            {% endfor %}
+        </div>
     </div>
+
     <div class="col-lg-8 col-md-8 col-sm-7 col-xs-12" align="center">
         <button class="btn btn-warning import_userData">Synchronize Devices</button><br><br>
 

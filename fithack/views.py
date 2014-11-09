@@ -39,7 +39,7 @@ def group_overview(member):
                     pass
             data_w = sum(data_group)/len(data_group)
             score = (goal - data_w) / goal
-            group_scores[group.name] = score
+            #group_scores[group.name] = score
         elif group.category == 'H':
             for datum in data:
                 if datum.calories_consumed is not None:
@@ -48,7 +48,7 @@ def group_overview(member):
                     pass
             data_h = sum(data_group)/len(data_group)
             score = (goal - data_h) / goal
-            group_scores[group.name] = score
+            #group_scores[group.name] = score
         else:
             for datum in data:
                 if datum.body_fat is not None:
@@ -56,12 +56,14 @@ def group_overview(member):
                 else:
                     pass
             score = sum(data_group)/len(data_group)
-            group_scores[group.name] = score
+        group_scores[group] = score
+        print group_scores
     return group_scores
 
 @login_required
 def group(request, group_id):
     group = Group.objects.get(id=group_id)
+    print group
     data = Data.objects.filter(member = request.user, date__range=[group.start_date, group.end_date])
     member_data = []
     data_group = []
@@ -70,13 +72,14 @@ def group(request, group_id):
     member = Member.objects.get(id=request.user.id)
     bmr = member.get_bmr()
     goal = (group.goal / 100) * bmr
-
+    print data
     if group.category == 'W':
         for datum in data:
             if datum.calories_burned is not None:
                 data_group.append(datum.calories_burned)
             else:
                 pass
+        print data_group
         data_w = sum(data_group)/len(data_group)
         score = (goal - data_w) / goal
         scores.append(score)
@@ -211,7 +214,11 @@ def user_dashboard(request):
             'time': i.date.split('T')[1].split('+')[0],
             'body_fat': i.body_fat*100
         })
-    group_data = group_overview(request.user)
+    try:
+        group_data = group_overview(request.user)
+        print group_data
+    except:
+        group_data = {}
 
     return render(request, 'user_dashboard.html', {
         'calories_consume': calories_consume,
