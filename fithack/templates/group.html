@@ -9,9 +9,9 @@ Group Goal: {{ group.goal }}<br>
     {% for member in group.member.all %}
     {{ member.username }},
     {% endfor %}<br>
-Best performing member:    {{ winner_name }}, Score: {{ winner_score }}<br>
+Best performing member: {{ winner_name }}, Score: {{ winner_score }}<br>
 
 Your Score: {{ score }}<br>
 Group average: {{ group_avg }}
 
-{% endblock %}
+{% endblock %}  
