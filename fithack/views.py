@@ -14,6 +14,7 @@ def create_group(request):
     data = {'form': form}
     return render(request, "create_group.html", data)
 
+
 def group(request, group_id):
     group = Group.objects.get(id=group_id)
     data = Data.objects.get(member = request.user, date__range=["2011-01-01", "2011-01-31"])
@@ -31,5 +32,5 @@ def group(request, group_id):
         score = group.goal - data_f / group.goal
 
 
-
-
+def user_dashboard(request):
+    return render(request, 'user_dashboard.html')
