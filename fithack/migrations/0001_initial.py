@@ -50,7 +50,7 @@ class Migration(migrations.Migration):
                 ('date', models.DateField(auto_created=True)),
                 ('calories_consumed', models.FloatField()),
                 ('calories_burned', models.FloatField()),
-                ('body_fat', models.FloatField(null=True, blank=True)),
+                ('body_fat', models.FloatField()),
                 ('activity', models.CharField(max_length=200)),
                 ('member', models.ForeignKey(related_name='data', to=settings.AUTH_USER_MODEL)),
             ],
@@ -67,6 +67,7 @@ class Migration(migrations.Migration):
                 ('start_date', models.DateField()),
                 ('end_date', models.DateField()),
                 ('goal', models.FloatField(null=True, blank=True)),
+                ('member', models.ManyToManyField(related_name='member', to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },
