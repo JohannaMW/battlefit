@@ -9,7 +9,6 @@ from django.views.decorators.csrf import csrf_exempt
 from fithack.forms import EmailUserCreationForm
 from fithack.models import *
 
-
 def create_group(request):
     if request.method == "POST":
         form = GroupForm(request.POST)
@@ -213,7 +212,7 @@ def user_dashboard(request):
             'body_fat': i.body_fat*100
         })
     group_data = group_overview(request.user)
-
+    print group_data
     return render(request, 'user_dashboard.html', {
         'calories_consume': calories_consume,
         'calories_burned': calories_burned,
