@@ -1,11 +1,5 @@
-<<<<<<< HEAD
 import json
 from django.http import HttpResponse
-from django.shortcuts import render
-
-# Create your views here.
-from django.views.decorators.csrf import csrf_exempt
-=======
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render
 
@@ -15,10 +9,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect, render, render_to_response
 from django.core.mail import EmailMultiAlternatives
 from django.views.decorators.csrf import csrf_exempt
-from fit import settings
 from fithack.forms import EmailUserCreationForm
-from fithack.models import *
-# from fithack.forms import *
 
 
 def home(request):
