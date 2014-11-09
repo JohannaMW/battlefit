@@ -1,12 +1,8 @@
-<<<<<<< HEAD
+
 from fithack.forms import GroupForm
 import operator
-=======
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render
-
-# Create your views here.
->>>>>>> ebcc81642e7cdbd5736db358ed1ef15f78f503ff
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect, render, render_to_response
@@ -32,7 +28,6 @@ def group(request, group_id):
     data = Data.objects.filter(member = request.user, date__range=[group.start_date, group.end_date])
     member_data = []
     data_group = []
-    score = 0
     member_score = {}
 
     if group.category == 'W':
