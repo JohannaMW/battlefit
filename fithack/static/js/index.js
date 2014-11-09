@@ -1,4 +1,11 @@
-$(document).ready(function(){
+$(document).ready(function () {
+
+//      //this is for making the edit profile image as the upload button
+    $("#upfile1").click(function () {
+        $("#file1").trigger('click');
+    });
+
+
     var vendpoint = "https://api.validic.com/v1/organizations/51aca5a06dedda916400002b/weight.json?access_token=ENTERPRISE_KEY&start_date=2014-04-01";
 //Enterprise bulk data: Weight
     var user_ids = [];
