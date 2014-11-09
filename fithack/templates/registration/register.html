@@ -6,28 +6,53 @@
 
 {% block content %}
 
-<div class="row">
-
-<div class="col-lg-3">
-
     <form method="post" action="." enctype="multipart/form-data">
          {% csrf_token %}
 
-        <table width="100%" border="0" cellspacing="5" cellpadding="5">
-        {% for field in form %}
+         <div class="row form_label">
+  <div class="col-xs-3 col-sm-6 col-md-6" align="right">Username {{ form.username }}</div>
+  <div class="col-xs-9 col-md-6"></div>
+</div>
+         <div class="row form_label">
+  <div class="col-xs-3 col-sm-6 col-md-6" align="right">First name {{ form.first_name }}</div>
+  <div class="col-xs-9 col-md-6"></div>
+</div>
+        <div class="row form_label">
+  <div class="col-xs-3 col-sm-6 col-md-6" align="right">Last name {{ form.last_name }}</div>
+  <div class="col-xs-9 col-md-6"></div>
+</div>
+        <div class="row form_label">
+  <div class="col-xs-3 col-sm-6 col-md-6" align="right">Email {{ form.email }}</div>
+  <div class="col-xs-9 col-md-6"></div>
+</div>
+        <div class="row form_label">
+  <div class="col-xs-3 col-sm-6 col-md-6" align="right">Password {{ form.password1 }}</div>
+  <div class="col-xs-9 col-md-6"></div>
+</div>
+        <div class="row form_label">
+  <div class="col-xs-3 col-sm-6 col-md-6" align="right">Confirm password {{ form.password2 }}</div>
+  <div class="col-xs-9 col-md-6"></div>
+{#</div>#}
+{#        <div class="row form_label">#}
+{#  <div class="col-xs-3 col-sm-6 col-md-6" align="right">Age {{ form.age }}</div>#}
+{#  <div class="col-xs-9 col-md-6"></div>#}
+{#</div>#}
+{#        <div class="row form_label">#}
+{#  <div class="col-xs-3 col-sm-6 col-md-6" align="right">Gender {{ form.gender }}</div>#}
+{#  <div class="col-xs-9 col-md-6"></div>#}
+{#</div>#}
+        <div class="row form_label">
 
-           <tr><td style="padding: 5px;" width="90" align="right" valign="top">{{ field.label_tag }}</td>
-           <td align="left" valign="top"><span style="padding-left: 10px;">{{ field }}</span></td></tr>
+        <div class="col-xs-3 col-sm-6 col-md-6" id="newProfile" > Click image to upload <img class="img-circle" src="{% static 'img/default.png' %}" id="upfile1" style="cursor:pointer" />
+            <input type="file" id="file1" name="file1" style="display:none" /></div>
+        <div class="col-xs-9 col-md-6"></div>
+</div>
 
-        {% endfor %}
-        </table>
-        <div align="center">
         <input class="btn btn-lg btn-primary" type="submit" value="Submit">
-        </div>
+
+
     </form>
 
-</div>
-</div>
 
 {% endblock content %}
 
