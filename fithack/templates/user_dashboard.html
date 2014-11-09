@@ -7,11 +7,14 @@
 {% endblock %}
 
 {% block content %}
+    {% for key, value in group_scores.items %}
+    {{ key }} {{ value }}
+    {% endfor %}
     <br>
     <br>
     <div class="col-lg-4 col-md-4 col-sm-7 col-xs-12" align="center">
         <div class="user_window back_trans">
-            <img id="big_user_photo" class="img-circle" src="{{ user.pic.url }}"/><br>
+            <img id="bg_profile_image" class="img-circle" src="{{ user.pic.url }}"/><br>
             <div class="user_window">
                 <table>
                     <tbody>

@@ -25,9 +25,9 @@
     margin-right: 10px;
 }
 
-#bg_profile_img {
-    width: 200%;
-    height: 200%;
+#bg_profile_image {
+    width: 100px;
+    height: 100px;
 }
 
 .text_box {
