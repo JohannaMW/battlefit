@@ -26,6 +26,7 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'fithack.Member'
 
 # Application definition
 
@@ -71,7 +72,6 @@ DATABASES = {
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
-AUTH_USER_MODEL = 'fithack.Member'
 
 LOGIN_REDIRECT_URL = '/profile'
 LOGIN_URL = 'login'
@@ -91,7 +91,7 @@ DEFAULT_FROM_EMAIL = ''
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
