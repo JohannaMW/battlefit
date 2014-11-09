@@ -46,6 +46,9 @@ class DataForm(ModelForm):
 
 
 class MemberForm(ModelForm):
+
+
+
     class Meta:
         model = Member
 
