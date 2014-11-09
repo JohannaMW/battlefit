@@ -1,28 +1,37 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
+{% block extra_head %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="{% static "js/index.js" %}"></script>
+{% endblock %}
+
 {% block content %}
 
     <h1>User dashboard</h1>
-    <table>
-        <thead>
-            <tr>
-                <td>Date</td>
-                <td>Type</td>
-                <td>Calories Uptake</td>
-                <td>Calories Consume</td>
-                <td>Body Fat</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
-    <a href="{% url 'user_dashboard'%}">User_dashboard</a>
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <button class="btn btn-default import_userData">Acquire user data from device</button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Date</td>
+                    <td>Type</td>
+                    <td>Calories Uptake</td>
+                    <td>Calories Consume</td>
+                    <td>Body Fat</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 
 {% endblock content %}
