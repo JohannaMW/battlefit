@@ -18,7 +18,6 @@ class Member(AbstractUser):
     def __unicode__(self):
         return unicode(self.username)
 
-<<<<<<< HEAD
     def get_bmr(self):
         if self.gender == 'F':
             bmr = 655 + ( 4.35 * self.weight) + ( 4.7 * self.height) - ( 4.7 * self.age)
@@ -26,8 +25,6 @@ class Member(AbstractUser):
             bmr =  66 + ( 6.23 * self.weight ) + ( 12.7 * self.height) - ( 6.8 * self.age)
         return bmr
 
-=======
->>>>>>> 9ab8f0feb9810b9ef9a28f4aade61a4ef70284ff
 
 class Group(models.Model):
     WEIGHT_LOSS = 'W'

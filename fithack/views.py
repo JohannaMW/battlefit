@@ -21,17 +21,16 @@ def create_group(request):
     data = {'form': form}
     return render(request, "create_group.html", data)
 
-@login_required
-def group_overview(request):
-    groups = Group.objects.filter(member=request.user)
-    member = Member.objects.get(id=request.user.id)
+def group_overview(member):
+    groups = Group.objects.filter(member=member)
+    member = Member.objects.get(id=member.id)
     bmr = member.get_bmr()
     group_scores = {}
     for group in groups:
         goal = (group.goal / 100) * bmr
         data_group = []
         group_scores = {}
-        data = Data.objects.filter(member = request.user, date__range=[group.start_date, group.end_date])
+        data = Data.objects.filter(member = member, date__range=[group.start_date, group.end_date])
         if group.category == 'W':
             for datum in data:
                 if datum.calories_burned is not None:
@@ -58,14 +57,7 @@ def group_overview(request):
                     pass
             score = sum(data_group)/len(data_group)
             group_scores[group.name] = score
-    data = {
-        "groups" : groups,
-        "group_scores" : group_scores
-    }
-    return render(request, "group_overview.html", data)
-
-
-
+    return group_scores
 
 @login_required
 def group(request, group_id):
@@ -220,10 +212,13 @@ def user_dashboard(request):
             'time': i.date.split('T')[1].split('+')[0],
             'body_fat': i.body_fat*100
         })
+    group_data = group_overview(request.user)
+
     return render(request, 'user_dashboard.html', {
         'calories_consume': calories_consume,
         'calories_burned': calories_burned,
-        'body_fat': body_fat
+        'body_fat': body_fat,
+        'group_data' : group_data
     })
 
 
