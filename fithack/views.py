@@ -4,12 +4,11 @@ from fithack.forms import GroupForm
 import operator
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect, render, render_to_response
-from django.core.mail import EmailMultiAlternatives
 from django.views.decorators.csrf import csrf_exempt
 from fithack.forms import EmailUserCreationForm
 from fithack.models import *
+
 
 def create_group(request):
     if request.method == "POST":
@@ -21,10 +20,6 @@ def create_group(request):
         form = GroupForm()
     data = {'form': form}
     return render(request, "create_group.html", data)
-
-def get_goal(member):
-
-    return goal
 
 @login_required
 def group_overview(request):
@@ -71,6 +66,7 @@ def group_overview(request):
 
 
 
+
 @login_required
 def group(request, group_id):
     group = Group.objects.get(id=group_id)
@@ -104,7 +100,6 @@ def group(request, group_id):
             mem_score = (goal - member_avg) / goal
             scores.append(mem_score)
             member_score[member.username] = mem_score
-            print member_score
 
     elif group.category == 'H':
         for datum in data:
@@ -115,6 +110,7 @@ def group(request, group_id):
         data_h = sum(data_group)/len(data_group)
         score = (data_h - goal) / data_h
         scores.append(score)
+
         members = group.member.all()
         for member in members:
             member_dataset = []
@@ -166,8 +162,11 @@ def group(request, group_id):
 
     return render(request, "group.html", data)
 
+
 def home(request):
     return render_to_response("home.html")
+
+# @csrf_exempt
 
 def register(request):
     if request.method == 'POST':
@@ -185,6 +184,7 @@ def register(request):
         form = EmailUserCreationForm()
     return render(request, "registration/register.html", {'form': form})
 
+
 @login_required
 def profile(request):
     if not request.user.is_authenticated():
@@ -192,8 +192,10 @@ def profile(request):
     return render(request, "registration/profile.html")
 
 
+@login_required
 def user_dashboard(request):
     return render(request, 'user_dashboard.html')
+
 
 @csrf_exempt
 def new_calories_consume(request):
@@ -209,6 +211,7 @@ def new_calories_consume(request):
                 member = request.user
             )
     return HttpResponse(content_type='application.json')
+
 
 @csrf_exempt
 def new_calories_burned(request):
