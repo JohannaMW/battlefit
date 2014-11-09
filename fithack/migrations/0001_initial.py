@@ -46,20 +46,12 @@ class Migration(migrations.Migration):
             name='Data',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-<<<<<<< HEAD
-                ('date', models.DateField(auto_created=True)),
-                ('calories_consumed', models.FloatField()),
-                ('calories_burned', models.FloatField()),
-                ('body_fat', models.FloatField()),
-                ('activity', models.CharField(max_length=200)),
-=======
                 ('calories_consumed', models.FloatField(null=True, blank=True)),
                 ('calories_burned', models.FloatField(null=True, blank=True)),
                 ('date', models.CharField(max_length=200)),
                 ('body_fat', models.FloatField(null=True, blank=True)),
                 ('activity_type', models.CharField(max_length=200)),
                 ('activity_title', models.CharField(max_length=200)),
->>>>>>> 50340e3d7491dab4ff2264fc9ec682863db5530e
                 ('member', models.ForeignKey(related_name='data', to=settings.AUTH_USER_MODEL)),
             ],
             options={
