@@ -3,8 +3,8 @@ from django.contrib import admin
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'fit.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
+    url(r'^$', 'fithack.views.home', name='home'),
+    url(r'^user_dashboard/$', 'fithack.views.user_dashboard', name='user_dashboard'),
 
     url(r'^admin/', include(admin.site.urls)),
 )
