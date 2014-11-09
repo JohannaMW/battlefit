@@ -1,3 +1,5 @@
+import json
+from django.http import HttpResponse
 from fithack.forms import GroupForm
 import operator
 from django.contrib.auth import authenticate, login
@@ -20,6 +22,35 @@ def create_group(request):
     return render(request, "create_group.html", data)
 
 
+@login_required
+def group_overview(request):
+    my_scores = {}
+    groups = Group.objects.filter(member = request.user)
+    for group in groups:
+        data = Data.objects.filter(member = request.user, date__range=[group.start_date, group.end_date])
+        if group.category == 'W':
+            for datum in data:
+                data_group = []
+                data_group.append(datum.calories_consumed)
+                data_h = sum(data_group)/len(data_group)
+                score = (data_h - group.goal) / data_h
+                my_scores[group.name] = score
+        elif group.category == 'H':
+            for datum in data:
+                data_group = []
+                data_group.append(datum.calories_burned)
+                data_h = sum(data_group)/len(data_group)
+                score = (data_h - group.goal) / data_h
+                my_scores[group.name] = score
+        else:
+            for datum in data:
+                data_group = []
+                data_group.append(datum.body_fat)
+                score = sum(data_group)/len(data_group)
+                my_scores[group.name] = score
+        pass
+
+@login_required
 def group(request, group_id):
     group = Group.objects.get(id=group_id)
     data = Data.objects.filter(member = request.user, date__range=[group.start_date, group.end_date])
@@ -80,15 +111,16 @@ def group(request, group_id):
 
     return render(request, "group.html", data)
 
-
 def home(request):
     return render_to_response("home.html")
 
 
-@csrf_exempt
+
+# @csrf_exempt
+
 def register(request):
     if request.method == 'POST':
-        form = EmailUserCreationForm(request.POST)
+        form = EmailUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
             username = request.POST['username']
             password = request.POST['password1']
@@ -113,3 +145,43 @@ def profile(request):
 def user_dashboard(request):
     return render(request, 'user_dashboard.html')
 
+@csrf_exempt
+def new_calories_consume(request):
+    print "new_calories_consume works"
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        for i in data:
+            Data.objects.get_or_create(
+                calories_consumed = i['calories_consumed'],
+                date = i['date'],
+                activity_title = i['activity_title'],
+                activity_type = i['activity_type'],
+                member = request.user
+            )
+    return HttpResponse(content_type='application.json')
+
+@csrf_exempt
+def new_calories_burned(request):
+    print "new_calories_burned works"
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        print data
+        for i in data:
+            print i
+            Data.objects.get_or_create(
+                calories_burned = i['calories_burned'],
+                date = i['date'],
+                activity_title = i['activity_title'],
+                activity_type = i['activity_type'],
+                member = request.user
+            )
+    return HttpResponse(content_type='application.json')
+#
+# @csrf_exempt
+# def new_body_fat(request):
+#     print "new_body_fat works"
+#     if request.method == 'POST':
+#         data = json.loads(request.body)
+#         # print data
+#
+#     return HttpResponse(content_type='application.json')

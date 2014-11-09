@@ -5,8 +5,7 @@ class Member(AbstractUser):
     FEMALE = 'F'
     MALE = 'M'
     score = models.IntegerField(null=True, blank=True)
-    name = models.CharField(max_length=200)
-    pic = models.ImageField(null=True, blank=True,  upload_to='profile_img', default='profile_img/default.png')
+    pic = models.ImageField(null=True, blank=True, upload_to='profile_img', default='profile_img/default.png')
     weight = models.FloatField(null=True, blank=True)
     height = models.IntegerField(null=True, blank=True)
     GENDER_CHOICES = (
@@ -47,12 +46,13 @@ class GroupAdmin(models.Model):
         return u"{}".format(self.group)
 
 class Data(models.Model):
-    calories_consumed = models.FloatField()
-    calories_burned = models.FloatField()
-    date = models.DateField(auto_created=True)
-    body_fat = models.FloatField()
-    activity = models.CharField(max_length=200)
+    calories_consumed = models.FloatField(null=True, blank=True)
+    calories_burned = models.FloatField(null=True, blank=True)
+    date = models.CharField(max_length=200)
+    body_fat = models.FloatField(null=True, blank=True)
+    activity_type = models.CharField(max_length=200)
+    activity_title = models.CharField(max_length=200)
     member = models.ForeignKey(Member, related_name='data')
 
     def __unicode__(self):
-        return u"{}".format(self.activity)
+        return u"{} {}".format(self.activity_type, self.activity_title)

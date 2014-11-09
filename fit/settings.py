@@ -91,7 +91,7 @@ DEFAULT_FROM_EMAIL = ''
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))

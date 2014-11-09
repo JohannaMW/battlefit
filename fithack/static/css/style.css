@@ -14,3 +14,35 @@
     padding-left: 100px;
     padding-right: 100px;
 }
+
+#sm_profile {
+    margin-top: 11px;
+    padding-right: 15px;
+}
+
+#sm_profile_img {
+    width: 30px;
+    margin-right: 10px;
+}
+
+.text_box {
+   width: 200px;
+   height: 20px;
+   border: solid 1px #DDDDDD;
+   padding: 16px;
+   border-radius: 1px;
+   font-size: 18px;
+   background-color: #FFFFFF;
+   outline: none;
+   color: #474747;
+  }
+.text_box:hover  {
+   border: 1px solid #FF9500;
+  }
+.text_box:focus  {
+   border: solid 1px #4DB35C;
+   box-shadow: inset 0px 1px 2px 0px #9C9C9C;
+  }
+.text_box:active  {
+   border: solid 1px #FCDA2D;
+  }
