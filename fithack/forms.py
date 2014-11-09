@@ -13,7 +13,7 @@ class EmailUserCreationForm(UserCreationForm):
 
     class Meta:
         model = Member
-        fields = ("username", "password1", "password2")
+        fields = ("username", "first_name", "last_name", "email", "password1", "password2")
 
     def clean_username(self):
         # Since User.username is unique, this check is redundant,
@@ -27,6 +27,11 @@ class EmailUserCreationForm(UserCreationForm):
             self.error_messages['duplicate_username'],
             code='duplicate_username',
         )
+
+
+class GroupForm(ModelForm):
+    class Meta:
+        model = Group
 
 
 class GroupAdminForm(ModelForm):
