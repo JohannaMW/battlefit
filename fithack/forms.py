@@ -46,7 +46,3 @@ class DataForm(ModelForm):
 class MemberForm(ModelForm):
     class Meta:
         model = Member
-<<<<<<< HEAD
-
-=======
->>>>>>> be929df2186a120a24e30b2fee943f316d7621e7
