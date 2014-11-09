@@ -21,6 +21,7 @@ class Group(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     goal = models.FloatField(null=True, blank=True)
+    category = models.CharField(max_length=200)
 
 class GroupAdmin(models.Model):
     admin = models.BooleanField(default=False)
