@@ -10,7 +10,7 @@ class EmailUserCreationForm(UserCreationForm):
 
     class Meta:
         model = Member
-        fields = ("username", "first_name", "last_name", "phone", "email", "password1", "password2")
+        fields = ("username", "first_name", "last_name", "email", "password1", "password2")
 
     def clean_username(self):
         # Since User.username is unique, this check is redundant,
@@ -30,14 +30,12 @@ class GroupForm(ModelForm):
     class Meta:
         model = Group
 
+
 class GroupAdminForm(ModelForm):
     class Meta:
         model = GroupAdmin
 
+
 class DataForm(ModelForm):
     class Meta:
         model = Data
-
-class MemberForm(ModelForm):
-    class Meta:
-        model = Member
