@@ -19,7 +19,6 @@ from fit import settings
 from fithack.forms import EmailUserCreationForm
 from fithack.models import *
 # from fithack.forms import *
->>>>>>> ebcc81642e7cdbd5736db358ed1ef15f78f503ff
 
 
 def home(request):
