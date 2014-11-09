@@ -1,0 +1,16 @@
+#bkgd {
+    background: url(../img/bkgd01.jpg);
+    width: 1600px;
+    /*height: 100%;*/
+}
+
+#logo {
+    z-index: 9999;
+    width: 80px;
+    margin-top: -10px;
+}
+
+#login {
+    padding-left: 100px;
+    padding-right: 100px;
+}
