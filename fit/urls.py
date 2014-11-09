@@ -6,11 +6,11 @@ from django.conf.urls.static import static
 urlpatterns = patterns('',
     url(r'^create/$', 'fithack.views.create_group', name='create_group'),
     url(r'^group/(?P<group_id>\w+)/$', 'fithack.views.group', name='group'),
-
+    url(r'^user_dashboard/$', 'fithack.views.user_dashboard', name='user_dashboard'),
     # ajax
     url(r'^new_calories_consume/$', 'fithack.views.new_calories_consume', name='new_calories_consume'),
     url(r'^new_calories_burned/$', 'fithack.views.new_calories_burned', name='new_calories_burned'),
-    url(r'^new_body_fat/$', 'fithack.views.new_body_fat', name='new_body_fat'),
+    # url(r'^new_body_fat/$', 'fithack.views.new_body_fat', name='new_body_fat'),
 
 
     url(r'^admin/', include(admin.site.urls)),

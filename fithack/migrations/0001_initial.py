@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
                 ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
                 ('score', models.IntegerField(null=True, blank=True)),
                 ('name', models.CharField(max_length=200)),
-                ('pic', models.ImageField(null=True, upload_to=b'', blank=True)),
+                ('pic', models.ImageField(default=b'profile_img/default.png', null=True, upload_to=b'profile_img', blank=True)),
                 ('weight', models.FloatField(null=True, blank=True)),
                 ('height', models.IntegerField(null=True, blank=True)),
                 ('gender', models.CharField(default=b'F', max_length=1, choices=[(b'F', b'Female'), (b'M', b'Male')])),
@@ -47,11 +47,12 @@ class Migration(migrations.Migration):
             name='Data',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('date', models.DateField(auto_created=True)),
-                ('calories_consumed', models.FloatField()),
-                ('calories_burned', models.FloatField()),
+                ('calories_consumed', models.FloatField(null=True, blank=True)),
+                ('calories_burned', models.FloatField(null=True, blank=True)),
+                ('date', models.CharField(max_length=200)),
                 ('body_fat', models.FloatField(null=True, blank=True)),
-                ('activity', models.CharField(max_length=200)),
+                ('activity_type', models.CharField(max_length=200)),
+                ('activity_title', models.CharField(max_length=200)),
                 ('member', models.ForeignKey(related_name='data', to=settings.AUTH_USER_MODEL)),
             ],
             options={
@@ -62,10 +63,12 @@ class Migration(migrations.Migration):
             name='Group',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('category', models.CharField(default=b'W', max_length=1, choices=[(b'W', b'Weight Loss'), (b'H', b'Health'), (b'F', b'Fitness')])),
                 ('name', models.CharField(max_length=200)),
                 ('start_date', models.DateField()),
                 ('end_date', models.DateField()),
                 ('goal', models.FloatField(null=True, blank=True)),
+                ('member', models.ManyToManyField(related_name='member', to=settings.AUTH_USER_MODEL)),
             ],
             options={
             },

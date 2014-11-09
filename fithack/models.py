@@ -47,13 +47,13 @@ class GroupAdmin(models.Model):
         return u"{}".format(self.group)
 
 class Data(models.Model):
-    calories_consumed = models.FloatField()
-    calories_burned = models.FloatField()
-    date = models.DateField(auto_created=True)
+    calories_consumed = models.FloatField(null=True, blank=True)
+    calories_burned = models.FloatField(null=True, blank=True)
+    date = models.CharField(max_length=200)
     body_fat = models.FloatField(null=True, blank=True)
     activity_type = models.CharField(max_length=200)
     activity_title = models.CharField(max_length=200)
     member = models.ForeignKey(Member, related_name='data')
 
     def __unicode__(self):
-        return u"{}".format(self.activity)
+        return u"{} {}".format(self.activity_type, self.activity_title)
