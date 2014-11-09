@@ -21,35 +21,43 @@ def create_group(request):
     data = {'form': form}
     return render(request, "create_group.html", data)
 
-
-@login_required
-def group_overview(request):
-    my_scores = {}
-    groups = Group.objects.filter(member = request.user)
+def group_overview(member):
+    groups = Group.objects.filter(member=member)
+    member = Member.objects.get(id=member.id)
+    bmr = member.get_bmr()
+    group_scores = {}
     for group in groups:
-        data = Data.objects.filter(member = request.user, date__range=[group.start_date, group.end_date])
+        goal = (group.goal / 100) * bmr
+        data_group = []
+        group_scores = {}
+        data = Data.objects.filter(member = member, date__range=[group.start_date, group.end_date])
         if group.category == 'W':
             for datum in data:
-                data_group = []
-                data_group.append(datum.calories_consumed)
-                data_h = sum(data_group)/len(data_group)
-                score = (data_h - group.goal) / data_h
-                my_scores[group.name] = score
+                if datum.calories_burned is not None:
+                    data_group.append(datum.calories_burned)
+                else:
+                    pass
+            data_w = sum(data_group)/len(data_group)
+            score = (goal - data_w) / goal
+            group_scores[group.name] = score
         elif group.category == 'H':
             for datum in data:
-                data_group = []
-                data_group.append(datum.calories_burned)
-                data_h = sum(data_group)/len(data_group)
-                score = (data_h - group.goal) / data_h
-                my_scores[group.name] = score
+                if datum.calories_consumed is not None:
+                    data_group.append(datum.calories_consumed)
+                else:
+                    pass
+            data_h = sum(data_group)/len(data_group)
+            score = (goal - data_h) / goal
+            group_scores[group.name] = score
         else:
             for datum in data:
-                data_group = []
-                data_group.append(datum.body_fat)
-                score = sum(data_group)/len(data_group)
-                my_scores[group.name] = score
-        pass
-
+                if datum.body_fat is not None:
+                    data_group.append(datum.body_fat)
+                else:
+                    pass
+            score = sum(data_group)/len(data_group)
+            group_scores[group.name] = score
+    return group_scores
 
 @login_required
 def group(request, group_id):
@@ -58,49 +66,84 @@ def group(request, group_id):
     member_data = []
     data_group = []
     member_score = {}
+    scores = []
+    member = Member.objects.get(id=request.user.id)
+    bmr = member.get_bmr()
+    goal = (group.goal / 100) * bmr
 
     if group.category == 'W':
         for datum in data:
-            data_group.append(datum.calories_burned)
+            if datum.calories_burned is not None:
+                data_group.append(datum.calories_burned)
+            else:
+                pass
         data_w = sum(data_group)/len(data_group)
-        score = (group.goal - data_w) / group.goal
+        score = (goal - data_w) / goal
+        scores.append(score)
         members = group.member.all()
-        print members
         for member in members:
             member_dataset = []
             data = Data.objects.filter(member=member, date__range=[group.start_date, group.end_date])
             for d in data:
-                member_dataset.append(d.calories_burned)
-                member_data.append(d.calories_burned)
+                if d.calories_burned is not None:
+                    member_dataset.append(d.calories_burned)
+                    member_data.append(d.calories_burned)
             member_avg = sum(member_dataset)/len(member_dataset)
-            mem_score = group.goal - member_avg / group.goal
+            mem_score = (goal - member_avg) / goal
+            scores.append(mem_score)
             member_score[member.username] = mem_score
 
     elif group.category == 'H':
         for datum in data:
-            data_group.append(datum.calories_consumed)
+            if datum.calories_consumed is not None:
+                data_group.append(datum.calories_consumed)
+            else:
+                pass
         data_h = sum(data_group)/len(data_group)
-        score = group.goal - data_h / group.goal
+        score = (data_h - goal) / data_h
+        scores.append(score)
+
         members = group.member.all()
         for member in members:
+            member_dataset = []
             data = Data.objects.filter(member=member, date__range=[group.start_date, group.end_date])
             for d in data:
-                member_data.append(d.calories_consumed)
+                if d.calories_consumed is not None:
+                    member_data.append(d.calories_consumed)
+                    member_dataset.append(d.calories_consumed)
+                else:
+                    pass
+
+            member_avg = sum(member_dataset)/len(member_dataset)
+            mem_score = (goal - member_avg) / goal
+            scores.append(mem_score)
+            member_score[member.username] = mem_score
     else:
         for datum in data:
-            data_group.append(datum.body_fat)
+            if datum.body_fat is not None:
+                data_group.append(datum.body_fat)
+            else:
+                pass
         score = sum(data_group)/len(data_group)
-        members = group.member
+        scores.append(score)
+        members = group.member.all()
         for member in members:
+            member_dataset = []
             data = Data.objects.filter(member=member, date__range=[group.start_date, group.end_date])
             for d in data:
-                member_data.append(d.body_fat)
-
-    group_avg = sum(member_data)/len(member_data)
+                if d.calories_consumed is not None:
+                    member_data.append(d.body_fat)
+                    member_dataset.append(d.body_fat)
+                else:
+                    pass
+            mem_score = sum(member_dataset)/len(member_dataset)
+            scores.append(mem_score)
+            member_score[member.username] = mem_score
+    group_avg = sum(scores)/len(scores)
+    print scores
     sorted_scores = sorted(member_score.items(), key=operator.itemgetter(1))
     sorted_scores.reverse()
     winner = sorted_scores[0]
-
     data = {
         "group_avg":group_avg,
         "score":score,
@@ -169,10 +212,13 @@ def user_dashboard(request):
             'time': i.date.split('T')[1].split('+')[0],
             'body_fat': i.body_fat*100
         })
+    group_data = group_overview(request.user)
+
     return render(request, 'user_dashboard.html', {
         'calories_consume': calories_consume,
         'calories_burned': calories_burned,
-        'body_fat': body_fat
+        'body_fat': body_fat,
+        'group_data' : group_data
     })
 
 

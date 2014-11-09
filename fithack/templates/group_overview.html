@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block content %}
+    <h1>My Groups</h1>
+{% for key, value in group_scores.items %}
+ {{ key }} {{ value }}
+    {% endfor %}
+{% endblock content %}
