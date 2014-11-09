@@ -12,7 +12,7 @@ $(document).ready(function(){
                 user_id = data.weight[0].user_id;
                 get_user_calories_consume(user_id);
                 get_user_calories_burned(user_id);
-//                get_user_body_fat(user_id);
+                get_user_body_fat(user_id);
             }
         });
 
@@ -88,30 +88,48 @@ $(document).ready(function(){
                     });
             }
         }
-//
-//        function get_user_body_fat(user_id) {
-//            //get body fat data of specific user
-//            //get a random body_fat from 15 ~ 30
-//            var body_fat = Math.floor(Math.random() * 300 + 150)*0.001;
-//    //        console.log(body_fat);
-//            saveit(body_fat);
-//            function saveit(body_fat){
-//                a = JSON.stringify(body_fat);
-//                    $.ajax({
-//                        url: '/new_body_fat/',
-//                        type: 'POST',
-//                        dataType: 'json',
-//                        data: a,
-//                        success: function (data) {
-//                            console.log(data)
-//                        },
-//                        error: function (data) {
-//                            console.log(data)
-//                        }
-//                    });
-//            }
-//        }
 
+        function get_user_body_fat(user_id) {
+            //get body fat data of specific user
+            //get a random body_fat from 15 ~ 30
+            var body_fat = Math.floor(Math.random() * 300 + 150)*0.001;
+            saveit(body_fat);
+            function saveit(body_fat){
+                a = JSON.stringify(body_fat);
+                    $.ajax({
+                        url: '/new_body_fat/',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: a,
+                        success: function (data) {
+                            console.log(data)
+                        },
+                        error: function (data) {
+                            console.log(data)
+                        }
+                    });
+            }
+        }
+
+    });
+    $("#show_weight_loss").hide();
+    $("#show_fitness").hide();
+    $('input[type="radio"]').click(function(){
+        if($(this).attr("value")=="show_health"){
+            $("#show_weight_loss").hide();
+            $("#show_fitness").hide();
+            $("#show_health").show();
+        }
+        if($(this).attr("value")=="show_weight_loss"){
+            $("#show_health").hide();
+            $("#show_fitness").hide();
+            $("#show_weight_loss").show();
+        }
+        if($(this).attr("value")=="show_fitness"){
+            $("#show_weight_loss").hide();
+            $("#show_health").hide();
+            $("#show_fitness").show();
+        }
     });
 
 

@@ -7,28 +7,112 @@
 {% endblock %}
 
 {% block content %}
+    <br>
+    <br>
+    <div class="col-md-4 col-xs-4" align="center">
+        <div class="user_window back_trans">
+            <img id="big_user_photo" class="img-circle" src="{{ user.pic.url }}"/><br>
+            <div class="user_window">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 10px;">User Name</td>
+                            <td style="padding: 10px;"><b>{{ user.username }}</b></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">Real Name</td>
+                            <td style="padding: 10px;"><b>{{ user.first_name }} {{ user.last_name }}</b></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">Gender</td>
+                            <td style="padding: 10px;"><b>{{ user.gender }}</b></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">Age</td>
+                            <td style="padding: 10px;"><b>{{ user.age }}</b></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">Height</td>
+                            <td style="padding: 10px;"><b>5' 10"</b></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">Weight</td>
+                            <td style="padding: 10px;"><b>{{ user.weight }}</b></td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">Score</td>
+                            <td style="padding: 10px;"><b>{{ user.score }}</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8 col-xs-8" align="center">
+        <button class="btn btn-default import_userData">Synchronize Devices</button><br><br>
 
-    <h1>User dashboard</h1>
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        <button class="btn btn-default import_userData">Acquire user data from device</button>
-        <table class="table">
+        <input type="radio" name="group1" value="show_health" checked> Show Health
+        <input type="radio" name="group1" value="show_weight_loss">  Show Weight Loss
+        <input type="radio" name="group1" value="show_fitness">  Show Fitness<br><br>
+{#        health data - calories consume#}
+        <table class="table user_window back_trans" id="show_health">
             <thead>
                 <tr>
                     <td>Date</td>
-                    <td>Type</td>
-                    <td>Calories Uptake</td>
+                    <td>Time</td>
+                    <td>Food</td>
                     <td>Calories Consume</td>
-                    <td>Body Fat</td>
                 </tr>
             </thead>
             <tbody>
+                {% for consume in calories_consume %}
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ consume.date }}</td>
+                    <td>{{ consume.time }}</td>
+                    <td>{{ consume.activity_title }}</td>
+                    <td>{{ consume.calories_consumed }}</td>
                 </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{#        health data - calories burned#}
+        <table class="table user_window back_trans"  id="show_weight_loss">
+            <thead>
+                <tr>
+                    <td>Date</td>
+                    <td>Time</td>
+                    <td>Activity</td>
+                    <td>Calories Burned</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for burned in calories_burned %}
+                <tr>
+                    <td>{{ burned.date }}</td>
+                    <td>{{ burned.time }}</td>
+                    <td>{{ burned.activity_title }}</td>
+                    <td>{{ burned.calories_burned }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{#        health data - body fat#}
+        <table class="table user_window back_trans" id="show_fitness">
+            <thead>
+                <tr>
+                    <td>Date</td>
+                    <td>Time</td>
+                    <td>Body Fat (%)</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fat in body_fat %}
+                <tr>
+                    <td>{{ fat.date }}</td>
+                    <td>{{ fat.time }}</td>
+                    <td>{{ fat.body_fat }}</td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
