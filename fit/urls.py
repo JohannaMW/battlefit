@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = patterns('',
     url(r'^create/$', 'fithack.views.create_group', name='create_group'),
+    url(r'^group/$', 'fithack.views.group_overview', name='group_overview'),
     url(r'^group/(?P<group_id>\w+)/$', 'fithack.views.group', name='group'),
     url(r'^user_dashboard/$', 'fithack.views.user_dashboard', name='user_dashboard'),
     # ajax

@@ -29,10 +29,6 @@ class Migration(migrations.Migration):
                 ('is_active', models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
                 ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
                 ('score', models.IntegerField(null=True, blank=True)),
-<<<<<<< HEAD
-=======
-                ('name', models.CharField(max_length=200)),
->>>>>>> bb53b78014bf3c348ab3b08ae15840f0a2809725
                 ('pic', models.ImageField(default=b'profile_img/default.png', null=True, upload_to=b'profile_img', blank=True)),
                 ('weight', models.FloatField(null=True, blank=True)),
                 ('height', models.IntegerField(null=True, blank=True)),
@@ -50,20 +46,12 @@ class Migration(migrations.Migration):
             name='Data',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-<<<<<<< HEAD
-                ('date', models.DateField(auto_created=True)),
-                ('calories_consumed', models.FloatField()),
-                ('calories_burned', models.FloatField()),
-                ('body_fat', models.FloatField()),
-                ('activity', models.CharField(max_length=200)),
-=======
                 ('calories_consumed', models.FloatField(null=True, blank=True)),
                 ('calories_burned', models.FloatField(null=True, blank=True)),
                 ('date', models.CharField(max_length=200)),
                 ('body_fat', models.FloatField(null=True, blank=True)),
                 ('activity_type', models.CharField(max_length=200)),
                 ('activity_title', models.CharField(max_length=200)),
->>>>>>> bb53b78014bf3c348ab3b08ae15840f0a2809725
                 ('member', models.ForeignKey(related_name='data', to=settings.AUTH_USER_MODEL)),
             ],
             options={

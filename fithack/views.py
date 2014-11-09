@@ -1,21 +1,8 @@
-<<<<<<< HEAD
-
-from fithack.forms import GroupForm
-import operator
-
-
-from django.contrib.auth import authenticate, login
-from django.shortcuts import render
-
-# Create your views here.
-
-=======
 import json
 from django.http import HttpResponse
 from fithack.forms import GroupForm
 import operator
 from django.contrib.auth import authenticate, login
->>>>>>> bb53b78014bf3c348ab3b08ae15840f0a2809725
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect, render, render_to_response
@@ -35,6 +22,35 @@ def create_group(request):
     data = {'form': form}
     return render(request, "create_group.html", data)
 
+@login_required
+def group_overview(request):
+    my_scores = {}
+    groups = Group.objects.filter(member = request.user)
+    for group in groups:
+        data = Data.objects.filter(member = request.user, date__range=[group.start_date, group.end_date])
+        if group.category == 'W':
+            for datum in data:
+                data_group = []
+                data_group.append(datum.calories_consumed)
+                data_h = sum(data_group)/len(data_group)
+                score = (data_h - group.goal) / data_h
+                my_scores[group.name] = score
+        elif group.category == 'H':
+            for datum in data:
+                data_group = []
+                data_group.append(datum.calories_burned)
+                data_h = sum(data_group)/len(data_group)
+                score = (data_h - group.goal) / data_h
+                my_scores[group.name] = score
+        else:
+            for datum in data:
+                data_group = []
+                data_group.append(datum.body_fat)
+                score = sum(data_group)/len(data_group)
+                my_scores[group.name] = score
+        pass
+
+@login_required
 def group(request, group_id):
     group = Group.objects.get(id=group_id)
     data = Data.objects.filter(member = request.user, date__range=[group.start_date, group.end_date])
@@ -96,10 +112,8 @@ def group(request, group_id):
 
     return render(request, "group.html", data)
 
-
 def home(request):
     return render_to_response("home.html")
-
 
 def register(request):
     if request.method == 'POST':
@@ -140,7 +154,6 @@ def new_calories_consume(request):
                 activity_type = i['activity_type'],
                 member = request.user
             )
-
     return HttpResponse(content_type='application.json')
 
 @csrf_exempt
@@ -158,7 +171,6 @@ def new_calories_burned(request):
                 activity_type = i['activity_type'],
                 member = request.user
             )
-
     return HttpResponse(content_type='application.json')
 #
 # @csrf_exempt
