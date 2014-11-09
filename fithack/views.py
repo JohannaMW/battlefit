@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 from fithack.forms import GroupForm
 import operator
@@ -8,12 +9,18 @@ from django.shortcuts import render
 
 # Create your views here.
 
+=======
+import json
+from django.http import HttpResponse
+from fithack.forms import GroupForm
+import operator
+from django.contrib.auth import authenticate, login
+>>>>>>> bb53b78014bf3c348ab3b08ae15840f0a2809725
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect, render, render_to_response
 from django.core.mail import EmailMultiAlternatives
 from django.views.decorators.csrf import csrf_exempt
-from fit import settings
 from fithack.forms import EmailUserCreationForm
 from fithack.models import *
 
@@ -120,3 +127,45 @@ def profile(request):
 def user_dashboard(request):
     return render(request, 'user_dashboard.html')
 
+@csrf_exempt
+def new_calories_consume(request):
+    print "new_calories_consume works"
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        for i in data:
+            Data.objects.get_or_create(
+                calories_consumed = i['calories_consumed'],
+                date = i['date'],
+                activity_title = i['activity_title'],
+                activity_type = i['activity_type'],
+                member = request.user
+            )
+
+    return HttpResponse(content_type='application.json')
+
+@csrf_exempt
+def new_calories_burned(request):
+    print "new_calories_burned works"
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        print data
+        for i in data:
+            print i
+            Data.objects.get_or_create(
+                calories_burned = i['calories_burned'],
+                date = i['date'],
+                activity_title = i['activity_title'],
+                activity_type = i['activity_type'],
+                member = request.user
+            )
+
+    return HttpResponse(content_type='application.json')
+#
+# @csrf_exempt
+# def new_body_fat(request):
+#     print "new_body_fat works"
+#     if request.method == 'POST':
+#         data = json.loads(request.body)
+#         # print data
+#
+#     return HttpResponse(content_type='application.json')

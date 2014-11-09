@@ -47,10 +47,11 @@
           <ul class="nav navbar-nav">
             <li class="active"><a href="#"><strong>Battle-Fit</strong></a></li>
             <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
+            <li><a href="{% url 'user_dashboard' %}">My Dashboard</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
+<<<<<<< HEAD
               {% if user.is_authenticated %}
                 <li id="sm_profile"><img id="sm_profile_img" class="img-circle" src="{{ user.pic.url }}"/> {{ user.username }}</li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
@@ -58,6 +59,14 @@
                 <li><a href="{% url 'register' %}">Register</a></li>
                 <li><a href="{% url 'login' %}">Login</a></li>
               {% endif %}
+=======
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                        <li><a href="{% url 'login' %}">Login</a></li>
+                        <li><a href="{% url 'register' %}">Register</a></li>
+                    {% endif %}
+>>>>>>> bb53b78014bf3c348ab3b08ae15840f0a2809725
           </ul>
         </div><!--/.nav-collapse -->
       </div>
