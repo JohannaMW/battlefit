@@ -21,7 +21,7 @@ def create_group(request):
         form = GroupForm(request.POST)
         if form.is_valid():
             if form.save():
-                return redirect("/epochs")
+                return redirect("/create")
     else:
         form = GroupForm()
     data = {'form': form}
