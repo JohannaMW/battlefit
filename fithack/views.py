@@ -67,17 +67,15 @@ def group(request, group_id):
     group_avg = sum(member_data)/len(member_data)
     sorted_scores = sorted(member_score.items(), key=operator.itemgetter(1))
     sorted_scores.reverse()
-    winner_score = sorted_scores[1]
-    print winner_score
-    winner_name = sorted_scores[0]
-    print winner_name
+    winner = sorted_scores[0]
+
 
     data = {
         "group_avg":group_avg,
         "score":score,
         "group":group,
-        "winner_score" : winner_score,
-        "winner_name" : winner_name
+        "winner_score" : winner[1],
+        "winner_name" : winner[0]
     }
 
     return render(request, "group.html", data)
