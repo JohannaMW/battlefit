@@ -55,7 +55,6 @@
 {#            <li><a href="#contact">Contact</a></li>#}
           </ul>
           <ul class="nav navbar-nav navbar-right">
-
               {% if user.is_authenticated %}
                 <li id="sm_profile"><img id="sm_profile_img" class="img-circle" src="{{ user.pic.url }}"/> {{ user.username }}</li>
                 <li><a href="{% url 'logout' %}">Logout</a></li>
