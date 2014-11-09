@@ -8,31 +8,37 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="{% static "css/main.css" %}">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
     <script src="{% static "js/index.js" %}"></script>
 </head>
 <body>
+<a href="{% url 'home'%}">Home</a>
     <h1>User dashboard</h1>
-    <table>
-        <thead>
-            <tr>
-                <td>Date</td>
-                <td>Type</td>
-                <td>Calories Uptake</td>
-                <td>Calories Consume</td>
-                <td>Body Fat</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        </tbody>
-    </table>
-    <a href="{% url 'user_dashboard'%}">User_dashboard</a>
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <button class="btn btn-default import_userData">Test</button>
+        <table class="table">
+            <thead>
+                <tr>
+                    <td>Date</td>
+                    <td>Type</td>
+                    <td>Calories Uptake</td>
+                    <td>Calories Consume</td>
+                    <td>Body Fat</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 
 </body>
 </html>
