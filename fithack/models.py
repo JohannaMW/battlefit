@@ -20,10 +20,20 @@ class Member(AbstractUser):
         return unicode(self.username)
 
 class Group(models.Model):
+    WEIGHT_LOSS = 'W'
+    HEALTH = 'H'
+    FITNESS = 'F'
+    CATEGORY_CHOICES = (
+        (WEIGHT_LOSS, 'Weight Loss'),
+        (HEALTH, 'Health'),
+        (FITNESS, 'Fitness'),
+    )
+    category = models.CharField(max_length=1, choices=CATEGORY_CHOICES, default='W')
     name = models.CharField(max_length=200)
     start_date = models.DateField()
     end_date = models.DateField()
     goal = models.FloatField(null=True, blank=True)
+    member = models.ManyToManyField(Member, related_name='member')
 
     def __unicode__(self):
         return u"{}".format(self.name)
@@ -40,7 +50,7 @@ class Data(models.Model):
     calories_consumed = models.FloatField()
     calories_burned = models.FloatField()
     date = models.DateField(auto_created=True)
-    body_fat = models.FloatField(null=True, blank=True)
+    body_fat = models.FloatField()
     activity = models.CharField(max_length=200)
     member = models.ForeignKey(Member, related_name='data')
 

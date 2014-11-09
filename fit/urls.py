@@ -4,9 +4,8 @@ from fit import settings
 from django.conf.urls.static import static
 
 urlpatterns = patterns('',
-    # Examples:
-    url(r'^$', 'fithack.views.home', name='home'),
-    url(r'^user_dashboard/$', 'fithack.views.user_dashboard', name='user_dashboard'),
+    url(r'^create/$', 'fithack.views.create_group', name='create_group'),
+    url(r'^group/(?P<group_id>\w+)/$', 'fithack.views.group', name='group'),
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'fithack.views.home', name='home'),

@@ -1,9 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
 from fithack.models import *
 from django.forms import ModelForm
-
 
 class EmailUserCreationForm(UserCreationForm):
     email = forms.EmailField(required=True)
@@ -25,7 +23,6 @@ class EmailUserCreationForm(UserCreationForm):
             code='duplicate_username',
         )
 
-
 class GroupForm(ModelForm):
     class Meta:
         model = Group
@@ -39,3 +36,10 @@ class GroupAdminForm(ModelForm):
 class DataForm(ModelForm):
     class Meta:
         model = Data
+<<<<<<< HEAD
+
+class MemberForm(ModelForm):
+    class Meta:
+        model = Member
+=======
+>>>>>>> ebcc81642e7cdbd5736db358ed1ef15f78f503ff
