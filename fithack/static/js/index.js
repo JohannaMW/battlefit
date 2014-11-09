@@ -1,15 +1,15 @@
 $(document).ready(function(){
     var vendpoint = "https://api.validic.com/v1/organizations/51aca5a06dedda916400002b/weight.json?access_token=ENTERPRISE_KEY&start_date=2014-04-01";
-//Enterprise bulk data: Weight
-    var user_ids = [];
-    var user_data = [];
+
+    var user_pk = $('#user_pk').html();
+    console.log(user_pk);
     $('.import_userData').on('click', function() {
             $.ajax({
             url: vendpoint,
             type: "GET",
             dataType: "json",
             success: function(data){
-                user_id = data.weight[0].user_id;
+                user_id = data.weight[user_pk].user_id;
                 get_user_calories_consume(user_id);
                 get_user_calories_burned(user_id);
                 get_user_body_fat(user_id);

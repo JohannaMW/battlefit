@@ -9,6 +9,7 @@
 {% block content %}
     <br>
     <br>
+    <div class="row">
     <div class="col-md-4 col-xs-4" align="center">
         <div class="user_window back_trans">
             <img id="big_user_photo" class="img-circle" src="{{ user.pic.url }}"/><br>
@@ -48,6 +49,7 @@
             </div>
         </div>
     </div>
+    <div id="user_pk" style="display:none;">{{ user.pk }}</div>
     <div class="col-md-8 col-xs-8" align="center">
         <button class="btn btn-default import_userData">Synchronize Devices</button><br><br>
 
@@ -115,6 +117,7 @@
                 {% endfor %}
             </tbody>
         </table>
+    </div>
     </div>
 
 
