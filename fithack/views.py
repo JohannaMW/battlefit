@@ -1,6 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
+<<<<<<< HEAD
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect, render, render_to_response
@@ -38,3 +39,7 @@ def profile(request):
     if not request.user.is_authenticated():
         return redirect("registration/login")
     return render(request, "registration/profile.html")
+
+
+def user_dashboard(request):
+    return render(request, 'user_dashboard.html')
