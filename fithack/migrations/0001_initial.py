@@ -62,6 +62,7 @@ class Migration(migrations.Migration):
             name='Group',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('category', models.CharField(default=b'W', max_length=1, choices=[(b'W', b'Weight Loss'), (b'H', b'Health'), (b'F', b'Fitness')])),
                 ('name', models.CharField(max_length=200)),
                 ('start_date', models.DateField()),
                 ('end_date', models.DateField()),
