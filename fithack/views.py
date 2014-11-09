@@ -50,6 +50,7 @@ def group_overview(request):
                 my_scores[group.name] = score
         pass
 
+
 @login_required
 def group(request, group_id):
     group = Group.objects.get(id=group_id)
@@ -100,7 +101,6 @@ def group(request, group_id):
     sorted_scores.reverse()
     winner = sorted_scores[0]
 
-
     data = {
         "group_avg":group_avg,
         "score":score,
@@ -111,10 +111,9 @@ def group(request, group_id):
 
     return render(request, "group.html", data)
 
+
 def home(request):
     return render_to_response("home.html")
-
-
 
 # @csrf_exempt
 
@@ -142,8 +141,10 @@ def profile(request):
     return render(request, "registration/profile.html")
 
 
+@login_required
 def user_dashboard(request):
     return render(request, 'user_dashboard.html')
+
 
 @csrf_exempt
 def new_calories_consume(request):
@@ -159,6 +160,7 @@ def new_calories_consume(request):
                 member = request.user
             )
     return HttpResponse(content_type='application.json')
+
 
 @csrf_exempt
 def new_calories_burned(request):

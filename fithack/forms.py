@@ -23,6 +23,7 @@ class EmailUserCreationForm(UserCreationForm):
             code='duplicate_username',
         )
 
+
 class GroupForm(ModelForm):
     category = forms.CharField(widget=forms.TextInput(attrs={'class': 'text_box'}))
     name = forms.CharField(widget=forms.TextInput(attrs={'class': 'text_box'}))
