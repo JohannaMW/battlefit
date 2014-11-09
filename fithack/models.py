@@ -17,11 +17,19 @@ class Member(AbstractUser):
     age = models.IntegerField(null=True, blank=True)
 
 class Group(models.Model):
+    WEIGHT_LOSS = 'W'
+    HEALTH = 'H'
+    FITNESS = 'F'
+    CATEGORY_CHOICES = (
+        (WEIGHT_LOSS, 'Weight Loss'),
+        (HEALTH, 'Health'),
+        (FITNESS, 'Fitness'),
+    )
+    category = models.CharField(max_length=1, choices=CATEGORY_CHOICES, default='W')
     name = models.CharField(max_length=200)
     start_date = models.DateField()
     end_date = models.DateField()
     goal = models.FloatField(null=True, blank=True)
-    category = models.CharField(max_length=200)
 
 class GroupAdmin(models.Model):
     admin = models.BooleanField(default=False)
