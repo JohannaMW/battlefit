@@ -39,3 +39,4 @@ class GroupAdminForm(ModelForm):
 class DataForm(ModelForm):
     class Meta:
         model = Data
+

@@ -16,10 +16,10 @@ from fithack.models import *
 def home(request):
     return render_to_response("home.html")
 
-@csrf_exempt
+
 def register(request):
     if request.method == 'POST':
-        form = EmailUserCreationForm(request.POST)
+        form = EmailUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
             username = request.POST['username']
             password = request.POST['password1']
