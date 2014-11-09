@@ -11,7 +11,7 @@ urlpatterns = patterns('',
     # ajax
     url(r'^new_calories_consume/$', 'fithack.views.new_calories_consume', name='new_calories_consume'),
     url(r'^new_calories_burned/$', 'fithack.views.new_calories_burned', name='new_calories_burned'),
-    # url(r'^new_body_fat/$', 'fithack.views.new_body_fat', name='new_body_fat'),
+    url(r'^new_body_fat/$', 'fithack.views.new_body_fat', name='new_body_fat'),
 
 
     url(r'^admin/', include(admin.site.urls)),

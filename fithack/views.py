@@ -139,11 +139,40 @@ def profile(request):
 
 
 def user_dashboard(request):
-    return render(request, 'user_dashboard.html')
+    calories_consume = []
+    calories_burned = []
+    body_fat = []
+    consume_data = Data.objects.filter(member=request.user, activity_type="meal")
+    for i in consume_data:
+        calories_consume.append({
+            'calories_consumed': i.calories_consumed,
+            'date': i.date.split('T')[0],
+            'time': i.date.split('T')[1].split('+')[0],
+            'activity_title': i.activity_title,
+        })
+    burned_data = Data.objects.filter(member=request.user, activity_type="exercise")
+    for i in burned_data:
+        calories_burned.append({
+            'calories_burned': i.calories_burned,
+            'date': i.date.split('T')[0],
+            'time': i.date.split('T')[1].split('+')[0],
+            'activity_title': i.activity_title,
+        })
+    fat_data = Data.objects.filter(member=request.user, activity_type="fitness")
+    for i in fat_data:
+        body_fat.append({
+            'date': i.date.split('T')[0],
+            'time': i.date.split('T')[1].split('+')[0],
+            'body_fat': i.body_fat*100
+        })
+    return render(request, 'user_dashboard.html', {
+        'calories_consume': calories_consume,
+        'calories_burned': calories_burned,
+        'body_fat': body_fat
+    })
 
 @csrf_exempt
 def new_calories_consume(request):
-    print "new_calories_consume works"
     if request.method == 'POST':
         data = json.loads(request.body)
         for i in data:
@@ -158,12 +187,9 @@ def new_calories_consume(request):
 
 @csrf_exempt
 def new_calories_burned(request):
-    print "new_calories_burned works"
     if request.method == 'POST':
         data = json.loads(request.body)
-        print data
         for i in data:
-            print i
             Data.objects.get_or_create(
                 calories_burned = i['calories_burned'],
                 date = i['date'],
@@ -172,12 +198,15 @@ def new_calories_burned(request):
                 member = request.user
             )
     return HttpResponse(content_type='application.json')
-#
-# @csrf_exempt
-# def new_body_fat(request):
-#     print "new_body_fat works"
-#     if request.method == 'POST':
-#         data = json.loads(request.body)
-#         # print data
-#
-#     return HttpResponse(content_type='application.json')
+
+@csrf_exempt
+def new_body_fat(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        Data.objects.get_or_create(
+            date = "2014-10-31T11:54:33+00:00",
+            activity_type = "fitness",
+            body_fat = data,
+            member = request.user)
+
+    return HttpResponse(content_type='application.json')
