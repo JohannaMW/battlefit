@@ -30,6 +30,7 @@ class Group(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     goal = models.FloatField(null=True, blank=True)
+    member = models.ManyToManyField(Member, related_name='member')
 
 class GroupAdmin(models.Model):
     admin = models.BooleanField(default=False)
