@@ -1,8 +1,13 @@
 
 from fithack.forms import GroupForm
 import operator
+
+
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render
+
+# Create your views here.
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect, render, render_to_response
@@ -17,7 +22,7 @@ def create_group(request):
         form = GroupForm(request.POST)
         if form.is_valid():
             if form.save():
-                return redirect("/epochs")
+                return redirect("/create")
     else:
         form = GroupForm()
     data = {'form': form}
@@ -88,10 +93,10 @@ def group(request, group_id):
 def home(request):
     return render_to_response("home.html")
 
-@csrf_exempt
+
 def register(request):
     if request.method == 'POST':
-        form = EmailUserCreationForm(request.POST)
+        form = EmailUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
             username = request.POST['username']
             password = request.POST['password1']

@@ -24,6 +24,12 @@ class EmailUserCreationForm(UserCreationForm):
         )
 
 class GroupForm(ModelForm):
+    category = forms.CharField(widget=forms.TextInput(attrs={'class': 'text_box'}))
+    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'text_box'}))
+    start_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'text_box'}))
+    end_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'text_box'}))
+    goal = forms.FloatField(widget=forms.TextInput(attrs={'class': 'text_box'}))
+
     class Meta:
         model = Group
 
@@ -40,4 +46,7 @@ class DataForm(ModelForm):
 class MemberForm(ModelForm):
     class Meta:
         model = Member
+<<<<<<< HEAD
 
+=======
+>>>>>>> be929df2186a120a24e30b2fee943f316d7621e7
