@@ -40,6 +40,7 @@ class GroupAdmin(models.Model):
 class Data(models.Model):
     calories_consumed = models.FloatField()
     calories_burned = models.FloatField()
-    date = models.DateField()
+    date = models.DateField(auto_created=True)
+    body_fat = models.FloatField(null=True, blank=True)
     activity = models.CharField(max_length=200)
     member = models.ForeignKey(Member, related_name='data')

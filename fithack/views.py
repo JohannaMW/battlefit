@@ -28,10 +28,3 @@ def group(request, group_id):
         data_group = data.
         data_f = sum(data_group)/len(data_group)
 
-
-
-
-
-
-
-
