@@ -2,9 +2,19 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 class Member(AbstractUser):
+    FEMALE = 'F'
+    MALE = 'M'
     score = models.IntegerField()
     name = models.CharField(max_length=200)
     pic = models.ImageField()
+    weight = models.FloatField()
+    height = models.IntegerField()
+    GENDER_CHOICES = (
+        (FEMALE, 'Female'),
+        (MALE, 'Male'),
+    )
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    age = models.IntegerField()
 
 class Group(models.Model):
     name = models.CharField(max_length=200)
