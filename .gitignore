@@ -59,3 +59,4 @@ target/
 .DS_Store
 /static
 .idea/
+local_settings.py

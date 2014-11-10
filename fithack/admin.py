@@ -1,3 +1,8 @@
 from django.contrib import admin
+from fithack.models import *
 
-# Register your models here.
+
+admin.site.register(Member)
+admin.site.register(Group)
+admin.site.register(GroupAdmin)
+admin.site.register(Data)
