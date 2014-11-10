@@ -34,11 +34,11 @@
 
 <h4>
     <span class="label label-default">Your Score:</span>
-    <span class="label label-danger">{{ score }}</span>
+    <span class="label label-danger">{{ score | floatformat:3}}</span>
 </h4>
 <h4>
     <span class="label label-default">Group average:</span>
-    <span class="label label-danger">{{ group_avg }}</span>
+    <span class="label label-danger">{{ group_avg | floatformat:3}}</span>
 </h4>
 <h4>
     <span class="label label-default">Best performing member:</span>
@@ -46,7 +46,7 @@
 </h4>
 <h4>
     <span class="label label-default">Best performing Score:</span>
-    <span class="label label-danger">{{ winner_score }}</span>
+    <span class="label label-danger">{{ winner_score | floatformat:3}}</span>
 </h4>
 
 <hr>

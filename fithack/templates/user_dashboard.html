@@ -7,16 +7,23 @@
 {% endblock %}
 
 {% block content %}
-<<<<<<< HEAD
-    {% for key, value in group_data.items %}
-    {{ key }} {{ value }}
-    {% endfor %}
-=======
->>>>>>> fa0792ce678ba80d9316551c733170c7688ae2ec
     <br>
     <br>
 
     <div class="col-lg-4 col-md-4 col-sm-7 col-xs-12" align="center">
+        <div style="margin-bottom: 30px;" class="user_window back_trans" align="center">
+            <h4 style="border-bottom: 2px solid darkgrey;"> Your Groups </h4>
+            {% for key, value in group_data.items %}
+                <table>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 10px;"><a href="/group/{{ key.id }}">{{ key.name }}</a></td>
+                            <td style="padding: 10px;"><h2 class="label label-success" style="font-size: 24px;"><img style="width: 60px; height: 60px;" src="https://cdn0.iconfinder.com/data/icons/gamification/512/cup_gold-512.png"/> {{ value | floatformat:3 }}</h2></td>
+                        </tr>
+                    </tbody>
+                </table>
+            {% endfor %}
+        </div>
         <div class="user_window back_trans">
             <img id="bg_profile_image" class="img-circle" src="{{ user.pic.url }}"/><br>
             <div class="user_window">
@@ -53,19 +60,6 @@
                     </tbody>
                 </table>
             </div>
-        </div>
-        <div style="margin-top: 30px;" class="user_window back_trans" align="center">
-            <h4 style="border-bottom: 2px solid darkgrey;"> Your Groups </h4>
-            {% for key, value in group_data.items %}
-                <table>
-                    <tbody>
-                        <tr>
-                            <td style="padding: 10px;"><a href="/group/{{ key.id }}">{{ key.name }}</a></td>
-                            <td style="padding: 10px;">score: <b>({{ value | floatformat:3 }})</b></td>
-                        </tr>
-                    </tbody>
-                </table>
-            {% endfor %}
         </div>
     </div>
 
